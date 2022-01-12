@@ -39,7 +39,7 @@
                                            Visibility="{Settings ShowGroupCount}"/>
                             </DockPanel>
                         </ExpanderEx.Header>
-                        <ItemsPresenter Height="225" />
+                        <ItemsPresenter Height="Auto" />
                     </ExpanderEx>
                 </ControlTemplate>
             </Setter.Value>
