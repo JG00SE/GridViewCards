@@ -1,0 +1,9 @@
+AddonId: GridViewCards_9af15fb8-f51c-45df-93fc-235c50bfcd39
+Packages:
+  - Version: 0.1
+    RequiredApiVersion: 2.1.0
+    ReleaseDate: 2022-01-12
+    PackageUrl:
+    Changelog:
+      - First upload for testing
+
