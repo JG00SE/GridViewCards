@@ -1,0 +1,792 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style TargetType="{x:Type GridViewGameOverview}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridViewGameOverview}">
+                    <Border Padding="10,0,5,0" BorderBrush="{DynamicResource PanelSeparatorBrush}"
+                            d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameDetailsIntance}" Background="{x:Null}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="1,0,0,0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Settings GridViewDetailsPosition}" Value="Left">
+                                        <Setter Property="BorderThickness" Value="0,0,1,0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Settings ShowPanelSeparators}" Value="False">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <DockPanel>
+
+                            <TextBlock Text="{DynamicResource LOCErrorNoGameSelected}" 
+                                   Margin="0,20,0,0" DockPanel.Dock="Top"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <Trigger Property="DataContext" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <DockPanel DockPanel.Dock="Top">
+                                <DockPanel.Style>
+                                    <Style TargetType="DockPanel">
+                                        <Style.Triggers>
+                                            <Trigger Property="DataContext" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DockPanel.Style>
+
+                                <ScrollViewer DockPanel.Dock="Top" HorizontalAlignment="Stretch"
+                                              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="{DynamicResource GridLibraryScrollBar}" Margin="0,20,0,0">
+
+
+                                    <DockPanel>
+                                        <StackPanel Height="Auto" Width="Auto" DockPanel.Dock="Top">
+                                            <Grid Height="300" Width="Auto" Margin="10,0">
+                                                <Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+                                                    <Grid.Effect>
+                                                        <DropShadowEffect ShadowDepth="0" Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15"/>
+                                                    </Grid.Effect>
+
+                                                    <!-- Use a VisualBrush of 'mask' as the opacity mask -->
+                                                    <Grid.OpacityMask>
+                                                        <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                                    </Grid.OpacityMask>
+
+                                                    <!-- Rounded mask (stretches to fill Grid) -->
+                                                    <Border x:Name="Mask" Background="{DynamicResource NormalBrush}" CornerRadius="5">
+                                                        <Border.CacheMode>
+                                                            <BitmapCache RenderAtScale="2" />
+                                                        </Border.CacheMode>
+                                                    </Border>
+
+                                                    <FadeImage x:Name="PART_ImageBackground" Stretch="UniformToFill"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Stretch" Foreground="Black" ImageDarkeningBrush="#3F000000" ClipToBounds="True"/>
+                                                    <Image x:Name="PART_ImageCover" VerticalAlignment="Center"
+                                                        Height="{Settings GameDetailsCoverHeight}"
+                                                        StretchDirection="Both" Stretch="Uniform"
+                                                        RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Margin="30,0,0,0" >
+                                                        <Image.Effect>
+                                                            <DropShadowEffect Opacity="0.5" BlurRadius="15" ShadowDepth="0"/>
+                                                        </Image.Effect>
+                                                    </Image>
+                                                </Grid>
+                                                <DockPanel VerticalAlignment="Center" Margin="0,-25,0,0">
+                                                    <TextBlock Text="{Binding Game.DisplayName}" FontSize="{DynamicResource FontSizeLarger}"
+                                               TextWrapping="Wrap" DockPanel.Dock="Left"
+                                               VerticalAlignment="Center" Foreground="{DynamicResource TextBrush}" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                        <TextBlock.Effect>
+                                                            <DropShadowEffect ShadowDepth="3"/>
+                                                        </TextBlock.Effect>
+                                                    </TextBlock>
+                                                    <ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                                                </DockPanel>
+                                                <Button HorizontalAlignment="Right" VerticalAlignment="Top"
+                                    Content="r" FontFamily="Marlett"
+                                    Style="{DynamicResource SimpleButton}"
+                                    Command="{MainViewModel CloseGameSideBarCommand}"
+                                    Margin="0,10,10,0" />
+                                            </Grid>
+                                            <Grid Background="Transparent" VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" Width="250">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" MaxWidth="150" />
+                                                    <ColumnDefinition Width="*" MaxWidth="150" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button x:Name="PART_ButtonPlayAction" Grid.Column="0"
+                                            Height="40" Style="{DynamicResource PlayButton}" Background="#FF007A1C" BorderBrush="{x:Null}" Foreground="#FFF2F2F2" >
+                                                    <Button.Effect>
+                                                        <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.95"/>
+                                                    </Button.Effect>
+                                                </Button>
+
+
+                                                <Button x:Name="PART_ButtonContextAction"
+                                                            
+                                                            
+                                            Height="40" Grid.Column="0" Background="#FF646464" BorderBrush="#FF464646" BorderThickness="2" >
+
+                                                    <Button.Effect>
+                                                        <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.95"/>
+                                                    </Button.Effect>
+                                                </Button>
+                                                <Button x:Name="PART_ButtonMoreActions"
+                                                            
+                                                            
+                                            Content="{DynamicResource LOCMoreAction}"
+                                            Height="40" Grid.Column="1" Margin="10,0,0,0" Background="#FF646464" BorderBrush="#FF464646" BorderThickness="2" >
+                                                    <Button.Effect>
+                                                        <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.95"/>
+                                                    </Button.Effect>
+                                                </Button>
+                                            </Grid>
+                                            <Grid Background="{x:Null}" Margin="0">
+                                                <StackPanel Height="Auto" Width="Auto">
+                                                    <Grid Height="285" Width="Auto" Margin="10,10,10,30">
+                                                        <Grid.Effect>
+                                                            <DropShadowEffect ShadowDepth="0" Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15"/>
+                                                        </Grid.Effect>
+
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                                        </Grid.OpacityMask>
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+
+                                                        <StackPanel Height="Auto" HorizontalAlignment="Stretch" Margin="20,0">
+                                                            <Grid HorizontalAlignment="Stretch" Height="110" Margin="0,45,20,0" Width="Auto" Visibility="Visible">
+                                                                <Border x:Name="Mask_Copy8" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Margin="0" Width="Auto" Height="Auto" Opacity="{DynamicResource ContainerOpacity}" Background="#00252525">
+                                                                    <Border.Effect>
+                                                                        <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                                    </Border.Effect>
+                                                                    <Border.CacheMode>
+                                                                        <BitmapCache RenderAtScale="2" />
+                                                                    </Border.CacheMode>
+                                                                </Border>
+                                                                <StackPanel Height="Auto" Width="Auto" Margin="0" Orientation="Horizontal">
+                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                        <Border x:Name="Mask_Copy3" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
+                                                                            <Border.CacheMode>
+                                                                                <BitmapCache RenderAtScale="2" />
+                                                                            </Border.CacheMode>
+                                                                            <StackPanel VerticalAlignment="Center">
+                                                                                <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEEDC;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                                <Label x:Name="PART_ElemPlayTime" Content="{DynamicResource LOCTimePlayed}" HorizontalAlignment="Center" />
+                                                                                <TextBlock x:Name="PART_TextPlayTime" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF0F0F0" />
+                                                                            </StackPanel>
+                                                                        </Border>
+
+
+
+
+
+
+
+                                                                    </Grid>
+                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                        <Border x:Name="Mask_Copy4" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
+                                                                            <Border.CacheMode>
+                                                                                <BitmapCache RenderAtScale="2" />
+                                                                            </Border.CacheMode>
+                                                                        </Border>
+                                                                        <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
+                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEC45;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                            <Label x:Name="PART_ElemLastPlayed" Content="{DynamicResource LOCLastPlayed}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                            <TextBlock x:Name="PART_TextLastActivity" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF0F0F0" />
+                                                                        </StackPanel>
+
+
+
+
+
+
+
+                                                                    </Grid>
+                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                        <Border x:Name="Mask_Copy5" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
+                                                                            <Border.CacheMode>
+                                                                                <BitmapCache RenderAtScale="2" />
+                                                                            </Border.CacheMode>
+                                                                        </Border>
+                                                                        <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
+                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEF65;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                            <Label x:Name="PART_ElemLibrary" Content="{DynamicResource LOCGameProviderTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                                            <Button x:Name="PART_ButtonLibrary" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" />
+                                                                        </StackPanel>
+
+
+
+
+
+
+
+                                                                    </Grid>
+                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                        <Border x:Name="Mask_Copy6" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
+                                                                            <Border.CacheMode>
+                                                                                <BitmapCache RenderAtScale="2" />
+                                                                            </Border.CacheMode>
+                                                                        </Border>
+                                                                        <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
+                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEA2F;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                            <Label x:Name="PART_ElemPlatform" Content="{DynamicResource LOCPlatformTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                            <ItemsControl x:Name="PART_ItemsPlatforms" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" />
+                                                                        </StackPanel>
+
+
+
+
+
+
+
+                                                                    </Grid>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                            <Separator Margin="0,5,0.001,0" Background="#FF2C2C2C" />
+                                                            <ScrollViewer Height="Auto" Width="Auto" Margin="0,30,0,0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                                                                <StackPanel Height="Auto" Orientation="Horizontal" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                                                    <StackPanel Height="Auto" Margin="20,0" Width="150" VerticalAlignment="Stretch" Background="{x:Null}" Visibility="Collapsed">
+                                                                        <Image x:Name="PART_ImageIcon" MaxHeight="32" MaxWidth="32"
+                                           RenderOptions.BitmapScalingMode="Fant" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Height="Auto" Width="150" VerticalAlignment="Stretch" Background="{x:Null}" Margin="20,0">
+                                                                        <Label x:Name="PART_ElemPublishers" Content="{DynamicResource LOCPublisherLabel}" Margin="5,10,5,0" HorizontalAlignment="Center" />
+                                                                        <ItemsControl x:Name="PART_ItemsPublishers" HorizontalAlignment="Center" Margin="10" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Height="Auto" Width="150" Margin="20,0" VerticalAlignment="Stretch" Background="{x:Null}">
+                                                                        <Label x:Name="PART_ElemDevelopers" Content="{DynamicResource LOCDeveloperLabel}" Margin="5,10,5,0" HorizontalAlignment="Center" />
+                                                                        <ItemsControl x:Name="PART_ItemsDevelopers" Margin="10" HorizontalAlignment="Center" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Height="Auto" Width="150" Margin="20,0" VerticalAlignment="Stretch" Background="{x:Null}">
+                                                                        <Label x:Name="PART_ElemReleaseDate" Content="{DynamicResource LOCGameReleaseDateTitle}" Width="Auto" Margin="5,10,5,0" HorizontalAlignment="Center" />
+                                                                        <Button x:Name="PART_ButtonReleaseDate" VerticalAlignment="Center" Width="Auto" Margin="10" Background="{x:Null}" HorizontalAlignment="Center" BorderBrush="{x:Null}" Cursor="Hand" />
+                                                                    </StackPanel>
+                                                                    <StackPanel Height="Auto" Margin="20,0" Width="150" VerticalAlignment="Stretch" Background="{x:Null}">
+                                                                        <Label x:Name="PART_ElemSeries" Content="{DynamicResource LOCSeriesLabel}" Margin="15,10,15,0" HorizontalAlignment="Center" />
+                                                                        <ItemsControl x:Name="PART_ItemsSeries" Margin="10" HorizontalAlignment="Center" />
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </ScrollViewer>
+                                                            <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="{x:Null}" VerticalAlignment="Stretch" Height="Auto" Margin="0,10" Width="Auto" Visibility="Collapsed">
+                                                                <Border.CacheMode>
+                                                                    <BitmapCache RenderAtScale="2" />
+                                                                </Border.CacheMode>
+                                                                <ItemsControl ItemsSource="{Binding Game.Features}" Height="Auto" VerticalAlignment="Center" Margin="0,0,0,10">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0"
+                                                                    ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
+                                                                    Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                                    CommandParameter="{Binding}"/>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </Border>
+                                                            <Separator Margin="0,0,0.001,0" Background="#FF2C2C2C" Visibility="Collapsed" />
+                                                            <StackPanel Margin="0,20,0,0" Visibility="Collapsed" Background="{x:Null}" VerticalAlignment="Bottom">
+                                                                <StackPanel.Resources>
+                                                                    <Style TargetType="{x:Type ItemsControl}">
+                                                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                                                    </Style>
+                                                                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                                                                        <Setter Property="Margin" Value="0,4,8,4" />
+                                                                        <Setter Property="VerticalAlignment" Value="Top" />
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                    </Style>
+                                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PropertyItemButton}" />
+                                                                </StackPanel.Resources>
+
+                                                                <GridEx Margin="0"
+                                                    GridEx.ColumnCount="2" GridEx.StarColumns="1"
+                                                    GridEx.RowCount="21" GridEx.AutoLayoutColumns="2" Visibility="Collapsed">
+                                                                    <GridEx.Resources>
+                                                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+                                                                    </GridEx.Resources>
+
+                                                                    <Label x:Name="PART_ElemCompletionStatus" Content="{DynamicResource LOCCompletionStatus}" />
+                                                                    <Button x:Name="PART_ButtonCompletionStatus" VerticalAlignment="Center" />
+
+                                                                    <Label x:Name="PART_ElemGenres" Content="{DynamicResource LOCGenreLabel}" />
+                                                                    <ItemsControl x:Name="PART_ItemsGenres"  />
+
+                                                                    <Label x:Name="PART_ElemCategories" Content="{DynamicResource LOCGameCategoriesTitle}" />
+                                                                    <ItemsControl x:Name="PART_ItemsCategories" />
+
+                                                                    <Label x:Name="PART_ElemFeatures" Content="{DynamicResource LOCFeaturesLabel}" />
+                                                                    <ItemsControl x:Name="PART_ItemsFeatures" />
+
+                                                                    <Label x:Name="PART_ElemTags" Content="{DynamicResource LOCTagsLabel}" />
+                                                                    <ItemsControl x:Name="PART_ItemsTags" />
+
+                                                                    <Label x:Name="PART_ElemAgeRating" Content="{DynamicResource LOCAgeRatingLabel}" />
+                                                                    <ItemsControl x:Name="PART_ItemsAgeRatings" />
+
+                                                                    <Label x:Name="PART_ElemSource" Content="{DynamicResource LOCSourceLabel}" />
+                                                                    <Button x:Name="PART_ButtonSource" VerticalAlignment="Center" />
+
+                                                                    <Label x:Name="PART_ElemRegion" Content="{DynamicResource LOCRegionLabel}" />
+                                                                    <ItemsControl x:Name="PART_ItemsRegions" />
+
+                                                                    <Label x:Name="PART_ElemVersion" Content="{DynamicResource LOCVersionLabel}" />
+                                                                    <Button x:Name="PART_ButtonVersion" VerticalAlignment="Center" />
+
+                                                                    <Label x:Name="PART_ElemCommunityScore" Content="{DynamicResource LOCCommunityScore}" />
+                                                                    <TextBlock x:Name="PART_TextCommunityScore" VerticalAlignment="Center"
+                                                           Style="{DynamicResource TextBlockGameScore}" />
+
+                                                                    <Label x:Name="PART_ElemCriticScore" Content="{DynamicResource LOCCriticScore}" />
+                                                                    <TextBlock x:Name="PART_TextCriticScore" VerticalAlignment="Center"
+                                                           Style="{DynamicResource TextBlockGameScore}" />
+
+                                                                    <Label x:Name="PART_ElemUserScore" Content="{DynamicResource LOCUserScore}" />
+                                                                    <TextBlock x:Name="PART_TextUserScore" VerticalAlignment="Center"
+                                                           Style="{DynamicResource TextBlockGameScore}" />
+
+                                                                    <Label x:Name="PART_ElemLinks" Content="{DynamicResource LOCLinksLabel}" />
+                                                                    <ItemsControl x:Name="PART_ItemsLinks" />
+                                                                </GridEx>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                        <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Details" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,0" />
+                                                        <Button x:Name="PART_ButtonEditGame" Grid.Column="0"
+                                            Margin="0,8,20,0" Height="30" Focusable="False"
+                                            Content="&#xEDED;" FontFamily="{DynamicResource FontIcoFont}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Visible" Width="30" Background="{x:Null}" FontSize="10">
+                                                            <Button.Style>
+                                                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"  Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Button.Style>
+                                                        </Button>
+
+                                                    </Grid>
+
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" Tag="{PluginSettings Plugin=SuccessStory, Path=HasData}">
+                                                        <Grid.Style>
+                                                            <Style TargetType="{x:Type Grid}">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Grid.Style>
+                                                        <Grid.Effect>
+                                                            <DropShadowEffect ShadowDepth="0" Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15"/>
+                                                        </Grid.Effect>
+
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                                        </Grid.OpacityMask>
+
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                            <Border.Background>
+                                                                <SolidColorBrush Color="{DynamicResource GridItemBackgroundColor}"/>
+                                                            </Border.Background>
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+                                                        <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Achievements" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,2" />
+                                                        <Button x:Name="PART_CustomScButton" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,20,0" Background="{x:Null}">
+                                                            <ContentControl x:Name="SuccessStory_PluginViewItem" />
+                                                        </Button>
+                                                        <StackPanel Visibility="Visible" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                                                            <StackPanel.Style>
+                                                                <Style TargetType="{x:Type StackPanel}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </Style>
+                                                            </StackPanel.Style>
+                                                            <ContentControl x:Name="SuccessStory_PluginProgressBar" Margin="20,20,20,5" Height="15" Opacity="0.8" />
+
+
+                                                            <ContentControl x:Name="SuccessStory_PluginCompactUnlocked" Height="Auto" Margin="20,20,20,0" />
+
+
+                                                            <ContentControl x:Name="SuccessStory_PluginCompactLocked" Height="Auto" Margin="20,20,20,10" />
+
+
+                                                        </StackPanel>
+                                                        <StackPanel Margin="20,70,20,0" VerticalAlignment="Top" Height="40" Orientation="Horizontal">
+                                                            <StackPanel Height="Auto" Margin="20,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                                <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="1,3,1,0" TextWrapping="Wrap" Text="&#xEDD7;" Width="Auto" VerticalAlignment="Top" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                <Label Content="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" 
+                                                                               HorizontalAlignment="Left" FontSize="18"
+                                                                               Padding="5,3,0,5" Margin="15,0,0,0" Height="50" Width="Auto" VerticalAlignment="Top">
+                                                                    <Label.Style>
+                                                                        <Style TargetType="{x:Type Label}">
+                                                                            <Setter Property="Padding" Value="5,3,5,5" />
+                                                                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Label.Style>
+                                                                </Label>
+                                                                <Label Content="/" Height="Auto" Width="Auto" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,3,1,0"/>
+                                                                <Label Content="{PluginSettings Plugin=SuccessStory, Path=Total}" 
+                                                                    HorizontalAlignment="Left" FontSize="18"
+                                                                    Padding="5,3,0,5" Margin="0" Height="50" Width="Auto" VerticalAlignment="Top">
+                                                                    <Label.Style>
+                                                                        <Style TargetType="{x:Type Label}">
+                                                                            <Setter Property="Padding" Value="5,3,5,5" />
+                                                                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Label.Style>
+                                                                </Label>
+                                                            </StackPanel>
+                                                            <StackPanel Height="Auto" Margin="190,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                                <Label Content="{PluginSettings Plugin=SuccessStory, Path=Percent}" 
+                                                                    HorizontalAlignment="Left" FontSize="18"
+                                                                    Padding="5,3,0,5" Margin="0" Height="50" Width="Auto" VerticalAlignment="Top">
+                                                                    <Label.Style>
+                                                                        <Style TargetType="{x:Type Label}">
+                                                                            <Setter Property="Padding" Value="5,3,5,5" />
+                                                                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Label.Style>
+                                                                </Label>
+                                                                <Label Content="%" Height="Auto" Width="Auto" FontSize="18" Margin="1,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                                <Label Content="Complete" Height="Auto" Width="Auto" FontSize="18" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                            </StackPanel>
+                                                            <StackPanel Height="Auto" Margin="190,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                                <Label Content="{PluginSettings Plugin=SuccessStory, Path=Locked}" 
+                                                                            HorizontalAlignment="Left" FontSize="18"
+                                                                            Padding="5,3,0,5" Margin="0" Height="50" Width="Auto" VerticalAlignment="Top">
+                                                                    <Label.Style>
+                                                                        <Style TargetType="{x:Type Label}">
+                                                                            <Setter Property="Padding" Value="5,3,5,5" />
+                                                                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Label.Style>
+                                                                </Label>
+                                                                <Label Content="Remaining" Height="Auto" Width="Auto" FontSize="18" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" Visibility="{PluginStatus Plugin=NewsViewer_15e03ffe-90f6-4e8e-bd4d-94514777481d, Status=Installed}" >
+                                                        <Grid.Style>
+                                                            <Style TargetType="{x:Type Grid}">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Grid.Style>
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+                                                        <StackPanel>
+                                                            <StackPanel.Style>
+                                                                <Style TargetType="{x:Type StackPanel}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{PluginSettings FallbackValue=False, Plugin=NewsViewer, Path=ReviewsAvailable}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </StackPanel.Style>
+                                                            <ContentControl x:Name="NewsViewer_NewsViewerControl" Margin="20,50,20,5" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="News" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,0" />
+
+
+
+
+
+
+
+                                                    </Grid>
+                                                    <Grid x:Name="grid_Copy" Height="285" Width="Auto" Margin="10,0,10,30" Tag="{PluginSettings Plugin=ScreenshotsVisualizer, Path=HasData}">
+                                                        <Grid.Style>
+                                                            <Style TargetType="{x:Type Grid}">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Grid.Style>
+
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                            <Border.Background>
+                                                                <SolidColorBrush Color="{DynamicResource GridItemBackgroundColor}"/>
+                                                            </Border.Background>
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+
+                                                        <StackPanel x:Name="stackPanel" Visibility="Visible" VerticalAlignment="Bottom" Height="240">
+                                                            <StackPanel.Style>
+                                                                <Style TargetType="{x:Type StackPanel}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </Style>
+                                                            </StackPanel.Style>
+                                                            <ContentControl x:Name="ScreenshotsVisualizer_PluginListScreenshots" Margin="5,0" Height="{Binding Height, ElementName=stackPanel}" Width="{Binding Width, ElementName=grid}" VerticalAlignment="Bottom" />
+
+
+                                                        </StackPanel>
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="{x:Null}" VerticalAlignment="Top" Height="40" Margin="3,3,3,0">
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                            <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Screenshots" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                        </Border>
+                                                        <ContentControl x:Name="ScreenshotsVisualizer_PluginButton" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,20,0" />
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,-0.002,0" />
+
+
+                                                    </Grid>
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" Visibility="{Binding Visibility, ElementName=PART_HtmlDescription}">
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}" Background="#FF252525">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+                                                        <TextBlock x:Name="textBlock" Text="{DynamicResource LOCGameDescriptionTitle}"
+                                                       Style="{DynamicResource BaseTextBlockStyle}" FontWeight="Bold" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,15,0,0" />
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,-0.001,0" />
+                                                        <ScrollViewer Margin="0,45,0,0">
+                                                            <StackPanel x:Name="PART_ElemDescription" Margin="20,0,20,5" Height="Auto" Width="Auto" VerticalAlignment="Top">
+                                                                <HtmlTextView x:Name="PART_HtmlDescription"
+                                                          HtmlFontSize="{DynamicResource FontSize}"
+                                                          HtmlFontFamily="{DynamicResource FontFamily}"
+                                                          HtmlForeground="{DynamicResource TextColor}"
+                                                          LinkForeground="{DynamicResource GlyphColor}"                                      
+                                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                          ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0,20,0,0"/>
+                                                            </StackPanel>
+                                                        </ScrollViewer>
+
+
+
+
+
+
+
+                                                    </Grid>
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30">
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}" Background="#FF252525">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+                                                        <TextBlock
+                                                            Style="{DynamicResource BaseTextBlockStyle}" FontWeight="Bold" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,15,0,0" Text="Links" />
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,-0.001,0" />
+                                                        <StackPanel Height="Auto" Width="Auto" VerticalAlignment="Top" Margin="0,45,0,0">
+                                                            <ScrollViewer Margin="0" Height="70" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                                <ItemsControl ItemsSource="{Binding Game.Links}" Height="40" VerticalAlignment="Center" Margin="5,0">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0" Foreground="White"
+                                                            ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
+                                                            Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                            CommandParameter="{Binding}"/>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </ScrollViewer>
+                                                            <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0" />
+                                                            <ScrollViewer Margin="0" Height="70" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                                <ItemsControl ItemsSource="{Binding Game.Features}" Height="40" VerticalAlignment="Center" Margin="5,0">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0" Foreground="White"
+                                                                        ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
+                                                                        Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                                        CommandParameter="{Binding}"/>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </ScrollViewer>
+                                                            <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0" />
+                                                            <ScrollViewer Margin="0" Height="70" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                                <ItemsControl ItemsSource="{Binding Game.Tags}" Height="40" VerticalAlignment="Center" Margin="5,0">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0" Foreground="White"
+                                                                                ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
+                                                                                Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                                                CommandParameter="{Binding}"/>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </ScrollViewer>
+                                                        </StackPanel>
+
+
+
+
+
+
+
+                                                    </Grid>
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" Tag="{PluginSettings Plugin=GameActivity, Path=HasData}">
+                                                        <Grid.Effect>
+                                                            <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                        </Grid.Effect>
+                                                        <Grid.Style>
+                                                            <Style TargetType="{x:Type Grid}">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Grid.Style>
+
+
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+                                                        <StackPanel Visibility="Visible" VerticalAlignment="Center">
+                                                            <StackPanel.Style>
+                                                                <Style TargetType="{x:Type StackPanel}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </Style>
+                                                            </StackPanel.Style>
+                                                            <ContentControl x:Name="GameActivity_PluginChartTime" Margin="20,45,20,20" />
+
+
+                                                        </StackPanel>
+                                                        <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Game Activity" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,0" />
+
+                                                    </Grid>
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" Visibility="{PluginStatus Plugin=Review_Viewer_ca24e37a-76d9-49bf-89ab-d3cba4a54bd1, Status=Installed}">
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
+                                                            </Border.Effect>
+                                                            <Border.CacheMode>
+                                                                <BitmapCache RenderAtScale="2" />
+                                                            </Border.CacheMode>
+                                                        </Border>
+                                                        <StackPanel Visibility="Visible">
+                                                            <StackPanel.Style>
+                                                                <Style TargetType="{x:Type StackPanel}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </Style>
+                                                            </StackPanel.Style>
+                                                            <ContentControl x:Name="ReviewViewer_ReviewsControl" Margin="20,60,20,0" />
+
+                                                        </StackPanel>
+                                                        <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Steam Reviews" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                        <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,0" />
+
+
+
+
+
+
+
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+
+                                        <StackPanel x:Name="PART_ElemNotes" DockPanel.Dock="Top"
+                                                    Margin="5,0,5,15">
+                                            <TextBlock Text="{DynamicResource LOCNotesLabel}"
+                                                       Style="{DynamicResource BaseTextBlockStyle}" />
+                                            <Separator Background="{DynamicResource PanelSeparatorBrush}" Margin="0,5,0,5" />
+                                            <TextBox x:Name="PART_TextNotes" IsReadOnly="True"
+                                                     BorderThickness="0"
+                                                     AcceptsReturn="True" TextWrapping="Wrap"
+                                                     Margin="-1,0,-1,0" Padding="0"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </ScrollViewer>
+                            </DockPanel>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
