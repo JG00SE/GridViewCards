@@ -21,7 +21,7 @@
                             <Rectangle Name="PART_Track" Margin="0" />
                             <Decorator x:Name="PART_Indicator" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                                 <Grid>
-                                    <Rectangle Fill="{TemplateBinding Foreground}" />
+                                    <Rectangle Fill="#FF959595" />
                                     <Grid x:Name="Animation" Visibility="Hidden">
                                         <Rectangle Fill="{TemplateBinding Background}" Margin="0,0,50,0">
                                             <Rectangle.RenderTransform>
