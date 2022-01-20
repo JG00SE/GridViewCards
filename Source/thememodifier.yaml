@@ -1,2 +1,8 @@
 Constants:
-- ThemeMofiderInitialSetup
+- Opacity Settings
+- GameCoverOpacity(0,1):
+- GameBannerOpacity(0,1):
+- GridContainerOpacity(0,1):
+- GameUnderCoverDetailsOpacity(0,1):
+- Color Settings
+- GridItemBackgroundColor:
