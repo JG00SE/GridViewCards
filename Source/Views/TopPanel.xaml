@@ -175,7 +175,7 @@
                         </Border.Style>
                         <DockPanel x:Name="dockPanel" Margin="0">
                             <Grid Height="Auto" VerticalAlignment="Stretch" Width="{Binding ActualWidth, ElementName=dockPanel}" Background="#FF2C2C2D">
-                                <StackPanel Height="30" Margin="10,0,0,0" VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Left" Orientation="Horizontal">
+                                <StackPanel Height="30" Margin="20,0,0,0" VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Left" Orientation="Horizontal">
                                     <Border x:Name="PART_ElemMainMenu" Background="Transparent"
                                     Margin="0" Cursor="Hand"
                                     WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center">
@@ -190,21 +190,21 @@
                                 </StackPanel>
                                 <StackPanel Height="Auto" VerticalAlignment="Stretch" Width="Auto" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <StackPanel x:Name="PART_PanelMainItems" Orientation="Horizontal"
-                                        VerticalAlignment="Stretch" Margin="0,6,0,6"/>
+                                        VerticalAlignment="Stretch" Margin="0,6,0,6" Cursor="Hand"/>
 
                                     <CheckBox x:Name="PART_ToggleFilter" ToolTip="{DynamicResource LOCFilters}"
-                                      Style="{DynamicResource TopPanelFilterToggle}" Background="#000A0E1E"
+                                      Style="{DynamicResource TopPanelFilterToggle}" Background="#000A0E1E" Cursor="Hand"
                                       />
 
                                     <CheckBox x:Name="PART_ToggleNotifications"
-                                      Style="{DynamicResource TopPanelNotificationsToggle}"
+                                      Style="{DynamicResource TopPanelNotificationsToggle}" Cursor="Hand"
                                       />
                                 </StackPanel>
                                 <StackPanel x:Name="PART_PanelMainPluginItems" Orientation="Horizontal"
-                                        VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0,0,20,0"
+                                        VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0,0,120,0" Cursor="Hand"
                                         />
                                 <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
                                     <Grid MaxWidth="600" MinWidth="300">
                                         <ProgressBar x:Name="PART_ProgressGlobal" />
                                         <TextBlock x:Name="PART_TextProgressText"

@@ -9,7 +9,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GridViewGameOverview}">
                     <Border Padding="10,0,5,0" BorderBrush="{DynamicResource PanelSeparatorBrush}"
-                            d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameDetailsIntance}" Background="{x:Null}">
+                            d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameDetailsIntance}" Background="{DynamicResource LibraryDetailsBackgroundTintBrush}">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0"/>
+                        </Border.Effect>
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="BorderThickness" Value="1,0,0,0" />
@@ -52,16 +55,16 @@
                                 </DockPanel.Style>
 
                                 <ScrollViewer DockPanel.Dock="Top" HorizontalAlignment="Stretch"
-                                              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="{DynamicResource GridLibraryScrollBar}" Margin="0,20,0,0">
+                                              HorizontalScrollBarVisibility="Disabled" Margin="0" VerticalScrollBarVisibility="Auto">
 
 
                                     <DockPanel>
                                         <StackPanel Height="Auto" Width="Auto" DockPanel.Dock="Top">
-                                            <Grid Height="300" Width="Auto" Margin="10,0">
-                                                <Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
-                                                    <Grid.Effect>
-                                                        <DropShadowEffect ShadowDepth="0" Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15"/>
-                                                    </Grid.Effect>
+                                            <Grid Height="300" Width="Auto" Margin="10,20,10,0">
+                                                <Grid.Effect>
+                                                    <DropShadowEffect ShadowDepth="0" BlurRadius="15" Opacity="0.75"/>
+                                                </Grid.Effect>
+                                                <Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" Opacity="{DynamicResource GameBannerOpacity}">
 
                                                     <!-- Use a VisualBrush of 'mask' as the opacity mask -->
                                                     <Grid.OpacityMask>
@@ -101,7 +104,7 @@
                                     Content="r" FontFamily="Marlett"
                                     Style="{DynamicResource SimpleButton}"
                                     Command="{MainViewModel CloseGameSideBarCommand}"
-                                    Margin="0,10,10,0" />
+                                    Margin="0,10,10,0" Cursor="Hand" />
                                             </Grid>
                                             <Grid Background="Transparent" VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" Width="250">
                                                 <Grid.ColumnDefinitions>
@@ -110,7 +113,7 @@
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
                                                 <Button x:Name="PART_ButtonPlayAction" Grid.Column="0"
-                                            Height="40" Style="{DynamicResource PlayButton}" Background="#FF007A1C" BorderBrush="{x:Null}" Foreground="#FFF2F2F2" >
+                                            Height="40" Style="{DynamicResource PlayButton}" Background="#FF007A1C" BorderBrush="{x:Null}" Foreground="#FFF2F2F2" Cursor="Hand" >
                                                     <Button.Effect>
                                                         <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.95"/>
                                                     </Button.Effect>
@@ -120,7 +123,7 @@
                                                 <Button x:Name="PART_ButtonContextAction"
                                                             
                                                             
-                                            Height="40" Grid.Column="0" Background="#FF646464" BorderBrush="#FF464646" BorderThickness="2" >
+                                            Height="40" Grid.Column="0" Background="#FF646464" BorderBrush="#FF464646" BorderThickness="2" Cursor="Hand" >
 
                                                     <Button.Effect>
                                                         <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.95"/>
@@ -130,7 +133,7 @@
                                                             
                                                             
                                             Content="{DynamicResource LOCMoreAction}"
-                                            Height="40" Grid.Column="1" Margin="10,0,0,0" Background="#FF646464" BorderBrush="#FF464646" BorderThickness="2" >
+                                            Height="40" Grid.Column="1" Margin="10,0,0,0" Background="#FF646464" BorderBrush="#FF464646" BorderThickness="2" Cursor="Hand" >
                                                     <Button.Effect>
                                                         <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.95"/>
                                                     </Button.Effect>
@@ -146,7 +149,7 @@
                                                         <Grid.OpacityMask>
                                                             <VisualBrush Visual="{Binding ElementName=Mask}" />
                                                         </Grid.OpacityMask>
-                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}">
                                                             <Border.Effect>
                                                                 <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
                                                             </Border.Effect>
@@ -157,7 +160,7 @@
 
                                                         <StackPanel Height="Auto" HorizontalAlignment="Stretch" Margin="20,0">
                                                             <Grid HorizontalAlignment="Stretch" Height="110" Margin="0,45,20,0" Width="Auto" Visibility="Visible">
-                                                                <Border x:Name="Mask_Copy8" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Margin="0" Width="Auto" Height="Auto" Opacity="{DynamicResource ContainerOpacity}" Background="#00252525">
+                                                                <Border x:Name="Mask_Copy8" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Margin="0" Width="Auto" Height="Auto" Opacity="{DynamicResource GridContainerOpacity}" Background="#00252525">
                                                                     <Border.Effect>
                                                                         <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
                                                                     </Border.Effect>
@@ -166,13 +169,13 @@
                                                                     </Border.CacheMode>
                                                                 </Border>
                                                                 <StackPanel Height="Auto" Width="Auto" Margin="0" Orientation="Horizontal">
-                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                    <Grid Height="110" Width="150" Margin="20,0,10,0" HorizontalAlignment="Left" Visibility="{Binding Visibility, ElementName=PART_TextLastActivity}">
                                                                         <Border x:Name="Mask_Copy3" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
                                                                             <Border.CacheMode>
                                                                                 <BitmapCache RenderAtScale="2" />
                                                                             </Border.CacheMode>
                                                                             <StackPanel VerticalAlignment="Center">
-                                                                                <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEEDC;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                                <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEEDC;" Width="Auto" VerticalAlignment="Center" FontFamily="{StaticResource FontIcoFont}" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
                                                                                 <Label x:Name="PART_ElemPlayTime" Content="{DynamicResource LOCTimePlayed}" HorizontalAlignment="Center" />
                                                                                 <TextBlock x:Name="PART_TextPlayTime" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF0F0F0" />
                                                                             </StackPanel>
@@ -185,14 +188,14 @@
 
 
                                                                     </Grid>
-                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                    <Grid Height="110" Width="150" Margin="20,0,10,0" HorizontalAlignment="Left" Visibility="{Binding Visibility, ElementName=PART_TextLastActivity}">
                                                                         <Border x:Name="Mask_Copy4" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
                                                                             <Border.CacheMode>
                                                                                 <BitmapCache RenderAtScale="2" />
                                                                             </Border.CacheMode>
                                                                         </Border>
                                                                         <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
-                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEC45;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEC45;" Width="Auto" VerticalAlignment="Center" FontFamily="{StaticResource FontIcoFont}" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
                                                                             <Label x:Name="PART_ElemLastPlayed" Content="{DynamicResource LOCLastPlayed}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                             <TextBlock x:Name="PART_TextLastActivity" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF0F0F0" />
                                                                         </StackPanel>
@@ -204,14 +207,14 @@
 
 
                                                                     </Grid>
-                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                    <Grid Height="110" Width="150" Margin="20,0,10,0" HorizontalAlignment="Left" Visibility="{Binding Visibility, ElementName=PART_ButtonLibrary}">
                                                                         <Border x:Name="Mask_Copy5" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
                                                                             <Border.CacheMode>
                                                                                 <BitmapCache RenderAtScale="2" />
                                                                             </Border.CacheMode>
                                                                         </Border>
                                                                         <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
-                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEF65;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEF65;" Width="Auto" VerticalAlignment="Center" FontFamily="{StaticResource FontIcoFont}" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
                                                                             <Label x:Name="PART_ElemLibrary" Content="{DynamicResource LOCGameProviderTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                                                             <Button x:Name="PART_ButtonLibrary" VerticalAlignment="Center" Margin="0,10,0,0" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" />
                                                                         </StackPanel>
@@ -223,14 +226,14 @@
 
 
                                                                     </Grid>
-                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left">
+                                                                    <Grid Height="110" Width="150" Margin="20,0" HorizontalAlignment="Left" Visibility="{Binding Visibility, ElementName=PART_ItemsPlatforms}">
                                                                         <Border x:Name="Mask_Copy6" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Background="#00282828" Margin="10">
                                                                             <Border.CacheMode>
                                                                                 <BitmapCache RenderAtScale="2" />
                                                                             </Border.CacheMode>
                                                                         </Border>
                                                                         <StackPanel HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
-                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEA2F;" Width="Auto" VerticalAlignment="Center" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                            <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,0,0,10" TextWrapping="Wrap" Text="&#xEA2F;" Width="Auto" VerticalAlignment="Center" FontFamily="{StaticResource FontIcoFont}" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
                                                                             <Label x:Name="PART_ElemPlatform" Content="{DynamicResource LOCPlatformTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                             <ItemsControl x:Name="PART_ItemsPlatforms" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" />
                                                                         </StackPanel>
@@ -245,25 +248,21 @@
                                                                 </StackPanel>
                                                             </Grid>
                                                             <Separator Margin="0,5,0.001,0" Background="#FF2C2C2C" />
-                                                            <ScrollViewer Height="Auto" Width="Auto" Margin="0,30,0,0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
-                                                                <StackPanel Height="Auto" Orientation="Horizontal" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                                                    <StackPanel Height="Auto" Margin="20,0" Width="150" VerticalAlignment="Stretch" Background="{x:Null}" Visibility="Collapsed">
-                                                                        <Image x:Name="PART_ImageIcon" MaxHeight="32" MaxWidth="32"
-                                           RenderOptions.BitmapScalingMode="Fant" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                                    </StackPanel>
-                                                                    <StackPanel Height="Auto" Width="150" VerticalAlignment="Stretch" Background="{x:Null}" Margin="20,0">
+                                                            <ScrollViewer Height="Auto" Width="Auto" Margin="0,30,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                                                <StackPanel Height="Auto" Orientation="Horizontal" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                                                    <StackPanel Height="Auto" Width="Auto" VerticalAlignment="Stretch" Background="{x:Null}" Margin="20,0" MinWidth="150">
                                                                         <Label x:Name="PART_ElemPublishers" Content="{DynamicResource LOCPublisherLabel}" Margin="5,10,5,0" HorizontalAlignment="Center" />
-                                                                        <ItemsControl x:Name="PART_ItemsPublishers" HorizontalAlignment="Center" Margin="10" />
+                                                                        <ItemsControl x:Name="PART_ItemsPublishers" HorizontalAlignment="Center" Margin="0,10" VerticalAlignment="Top" />
                                                                     </StackPanel>
-                                                                    <StackPanel Height="Auto" Width="150" Margin="20,0" VerticalAlignment="Stretch" Background="{x:Null}">
+                                                                    <StackPanel Height="Auto" Width="Auto" Margin="20,0,10,0" VerticalAlignment="Stretch" Background="{x:Null}" MinWidth="150">
                                                                         <Label x:Name="PART_ElemDevelopers" Content="{DynamicResource LOCDeveloperLabel}" Margin="5,10,5,0" HorizontalAlignment="Center" />
-                                                                        <ItemsControl x:Name="PART_ItemsDevelopers" Margin="10" HorizontalAlignment="Center" />
+                                                                        <ItemsControl x:Name="PART_ItemsDevelopers" Margin="0,10" HorizontalAlignment="Center" />
                                                                     </StackPanel>
-                                                                    <StackPanel Height="Auto" Width="150" Margin="20,0" VerticalAlignment="Stretch" Background="{x:Null}">
+                                                                    <StackPanel Height="Auto" Width="150" Margin="20,0,0,0" VerticalAlignment="Stretch" Background="{x:Null}">
                                                                         <Label x:Name="PART_ElemReleaseDate" Content="{DynamicResource LOCGameReleaseDateTitle}" Width="Auto" Margin="5,10,5,0" HorizontalAlignment="Center" />
                                                                         <Button x:Name="PART_ButtonReleaseDate" VerticalAlignment="Center" Width="Auto" Margin="10" Background="{x:Null}" HorizontalAlignment="Center" BorderBrush="{x:Null}" Cursor="Hand" />
                                                                     </StackPanel>
-                                                                    <StackPanel Height="Auto" Margin="20,0" Width="150" VerticalAlignment="Stretch" Background="{x:Null}">
+                                                                    <StackPanel Height="Auto" Margin="20,0,0,0" Width="150" VerticalAlignment="Stretch" Background="{x:Null}">
                                                                         <Label x:Name="PART_ElemSeries" Content="{DynamicResource LOCSeriesLabel}" Margin="15,10,15,0" HorizontalAlignment="Center" />
                                                                         <ItemsControl x:Name="PART_ItemsSeries" Margin="10" HorizontalAlignment="Center" />
                                                                     </StackPanel>
@@ -358,7 +357,7 @@
                                                         <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,0" />
                                                         <Button x:Name="PART_ButtonEditGame" Grid.Column="0"
                                             Margin="0,8,20,0" Height="30" Focusable="False"
-                                            Content="&#xEDED;" FontFamily="{DynamicResource FontIcoFont}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Visible" Width="30" Background="{x:Null}" FontSize="10">
+                                            Content="&#xEDED;" FontFamily="{StaticResource FontIcoFont}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Visible" Width="30" Background="{x:Null}" FontSize="8" Cursor="Hand">
                                                             <Button.Style>
                                                                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                                                     <Setter Property="Visibility" Value="Hidden" />
@@ -392,7 +391,7 @@
                                                             <VisualBrush Visual="{Binding ElementName=Mask}" />
                                                         </Grid.OpacityMask>
 
-                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}">
                                                             <Border.Background>
                                                                 <SolidColorBrush Color="{DynamicResource GridItemBackgroundColor}"/>
                                                             </Border.Background>
@@ -405,28 +404,28 @@
                                                         </Border>
                                                         <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Achievements" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
                                                         <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,2" />
-                                                        <Button x:Name="PART_CustomScButton" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,20,0" Background="{x:Null}">
+                                                        <Button x:Name="PART_CustomScButton" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,20,0" Background="{x:Null}" Cursor="Hand">
                                                             <ContentControl x:Name="SuccessStory_PluginViewItem" />
                                                         </Button>
-                                                        <StackPanel Visibility="Visible" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                                                        <StackPanel Visibility="Visible" VerticalAlignment="Top" Margin="0,100,0,0">
                                                             <StackPanel.Style>
                                                                 <Style TargetType="{x:Type StackPanel}">
                                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                                 </Style>
                                                             </StackPanel.Style>
-                                                            <ContentControl x:Name="SuccessStory_PluginProgressBar" Margin="20,20,20,5" Height="15" Opacity="0.8" />
+                                                            <ContentControl x:Name="SuccessStory_PluginProgressBar" Margin="20,20,20,0" Height="15" Opacity="0.8" />
 
 
-                                                            <ContentControl x:Name="SuccessStory_PluginCompactUnlocked" Height="Auto" Margin="20,20,20,0" />
+                                                            <ContentControl x:Name="SuccessStory_PluginCompactUnlocked" Height="Auto" Margin="20,15,20,0" />
 
 
-                                                            <ContentControl x:Name="SuccessStory_PluginCompactLocked" Height="Auto" Margin="20,20,20,10" />
+                                                            <ContentControl x:Name="SuccessStory_PluginCompactLocked" Height="Auto" Margin="20,15,20,10" />
 
 
                                                         </StackPanel>
                                                         <StackPanel Margin="20,70,20,0" VerticalAlignment="Top" Height="40" Orientation="Horizontal">
                                                             <StackPanel Height="Auto" Margin="20,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
-                                                                <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="1,3,1,0" TextWrapping="Wrap" Text="&#xEDD7;" Width="Auto" VerticalAlignment="Top" FontFamily="IcoFont" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
+                                                                <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="1,3,1,0" TextWrapping="Wrap" Text="&#xEDD7;" Width="Auto" VerticalAlignment="Top" FontFamily="{StaticResource FontIcoFont}" Foreground="{DynamicResource GlyphBrush}" FontSize="18"/>
                                                                 <Label Content="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" 
                                                                                HorizontalAlignment="Left" FontSize="18"
                                                                                Padding="5,3,0,5" Margin="15,0,0,0" Height="50" Width="Auto" VerticalAlignment="Top">
@@ -465,7 +464,7 @@
                                                                     </Label.Style>
                                                                 </Label>
                                                             </StackPanel>
-                                                            <StackPanel Height="Auto" Margin="190,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                            <StackPanel Height="Auto" Margin="150,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
                                                                 <Label Content="{PluginSettings Plugin=SuccessStory, Path=Percent}" 
                                                                     HorizontalAlignment="Left" FontSize="18"
                                                                     Padding="5,3,0,5" Margin="0" Height="50" Width="Auto" VerticalAlignment="Top">
@@ -487,7 +486,7 @@
                                                                 <Label Content="%" Height="Auto" Width="Auto" FontSize="18" Margin="1,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                                                 <Label Content="Complete" Height="Auto" Width="Auto" FontSize="18" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                                             </StackPanel>
-                                                            <StackPanel Height="Auto" Margin="190,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                            <StackPanel Height="Auto" Margin="150,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
                                                                 <Label Content="{PluginSettings Plugin=SuccessStory, Path=Locked}" 
                                                                             HorizontalAlignment="Left" FontSize="18"
                                                                             Padding="5,3,0,5" Margin="0" Height="50" Width="Auto" VerticalAlignment="Top">
@@ -510,18 +509,18 @@
                                                             </StackPanel>
                                                         </StackPanel>
                                                     </Grid>
-                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" Visibility="{PluginStatus Plugin=NewsViewer_15e03ffe-90f6-4e8e-bd4d-94514777481d, Status=Installed}" >
+                                                    <Grid Height="285" Width="Auto" Margin="10,0,10,30" >
                                                         <Grid.Style>
                                                             <Style TargetType="{x:Type Grid}">
                                                                 <Setter Property="Visibility" Value="Collapsed" />
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                                                    <DataTrigger Binding="{PluginSettings Plugin=NewsViewer, Path=ReviewsAvailable, FallbackValue=False}" Value="True">
                                                                         <Setter Property="Visibility" Value="Visible" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
                                                         </Grid.Style>
-                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}">
                                                             <Border.Effect>
                                                                 <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
                                                             </Border.Effect>
@@ -529,7 +528,7 @@
                                                                 <BitmapCache RenderAtScale="2" />
                                                             </Border.CacheMode>
                                                         </Border>
-                                                        <StackPanel>
+                                                        <StackPanel Margin="0,50,0,10">
                                                             <StackPanel.Style>
                                                                 <Style TargetType="{x:Type StackPanel}">
                                                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -540,7 +539,7 @@
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </StackPanel.Style>
-                                                            <ContentControl x:Name="NewsViewer_NewsViewerControl" Margin="20,50,20,5" FontWeight="Normal"/>
+                                                            <ContentControl x:Name="NewsViewer_NewsViewerControl" Margin="20,0,0,0" FontWeight="Normal"/>
                                                         </StackPanel>
                                                         <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="News" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
                                                         <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,0,0" />
@@ -564,7 +563,7 @@
                                                             </Style>
                                                         </Grid.Style>
 
-                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}">
                                                             <Border.Background>
                                                                 <SolidColorBrush Color="{DynamicResource GridItemBackgroundColor}"/>
                                                             </Border.Background>
@@ -576,13 +575,17 @@
                                                             </Border.CacheMode>
                                                         </Border>
 
-                                                        <StackPanel x:Name="stackPanel" Visibility="Visible" VerticalAlignment="Bottom" Height="240">
+                                                        <StackPanel x:Name="stackPanel" Visibility="Visible" VerticalAlignment="Bottom" Height="Auto">
                                                             <StackPanel.Style>
                                                                 <Style TargetType="{x:Type StackPanel}">
                                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                                 </Style>
                                                             </StackPanel.Style>
-                                                            <ContentControl x:Name="ScreenshotsVisualizer_PluginListScreenshots" Margin="5,0" Height="{Binding Height, ElementName=stackPanel}" Width="{Binding Width, ElementName=grid}" VerticalAlignment="Bottom" />
+                                                            <ContentControl x:Name="ScreenshotsVisualizer_PluginListScreenshots" Margin="5,0" Height="{Binding Height, ElementName=stackPanel}" Width="{Binding Width, ElementName=grid}" VerticalAlignment="Bottom" >
+                                                                <ContentControl.Effect>
+                                                                    <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.25"/>
+                                                                </ContentControl.Effect>
+                                                            </ContentControl>
 
 
                                                         </StackPanel>
@@ -592,13 +595,13 @@
                                                             </Border.CacheMode>
                                                             <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="20,15,0,0" TextWrapping="Wrap" Text="Screenshots" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14"/>
                                                         </Border>
-                                                        <ContentControl x:Name="ScreenshotsVisualizer_PluginButton" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,20,0" />
+                                                        <ContentControl x:Name="ScreenshotsVisualizer_PluginButton" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,20,0" FontSize="8" Cursor="Hand" />
                                                         <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,-0.002,0" />
 
 
                                                     </Grid>
                                                     <Grid Height="285" Width="Auto" Margin="10,0,10,30" Visibility="{Binding Visibility, ElementName=PART_HtmlDescription}">
-                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}" Background="#FF252525">
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}" Background="#FF252525">
                                                             <Border.Effect>
                                                                 <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
                                                             </Border.Effect>
@@ -609,7 +612,7 @@
                                                         <TextBlock x:Name="textBlock" Text="{DynamicResource LOCGameDescriptionTitle}"
                                                        Style="{DynamicResource BaseTextBlockStyle}" FontWeight="Bold" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,15,0,0" />
                                                         <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0,45,-0.001,0" />
-                                                        <ScrollViewer Margin="0,45,0,0">
+                                                        <ScrollViewer Margin="0,45,0,20">
                                                             <StackPanel x:Name="PART_ElemDescription" Margin="20,0,20,5" Height="Auto" Width="Auto" VerticalAlignment="Top">
                                                                 <HtmlTextView x:Name="PART_HtmlDescription"
                                                           HtmlFontSize="{DynamicResource FontSize}"
@@ -629,7 +632,7 @@
 
                                                     </Grid>
                                                     <Grid Height="285" Width="Auto" Margin="10,0,10,30">
-                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}" Background="#FF252525">
+                                                        <Border CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}" Background="#FF252525">
                                                             <Border.Effect>
                                                                 <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
                                                             </Border.Effect>
@@ -660,25 +663,7 @@
                                                             </ScrollViewer>
                                                             <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0" />
                                                             <ScrollViewer Margin="0" Height="70" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                                                                <ItemsControl ItemsSource="{Binding Game.Features}" Height="40" VerticalAlignment="Center" Margin="5,0">
-                                                                    <ItemsControl.ItemsPanel>
-                                                                        <ItemsPanelTemplate>
-                                                                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
-                                                                        </ItemsPanelTemplate>
-                                                                    </ItemsControl.ItemsPanel>
-                                                                    <ItemsControl.ItemTemplate>
-                                                                        <DataTemplate>
-                                                                            <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0" Foreground="White"
-                                                                        ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
-                                                                        Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
-                                                                        CommandParameter="{Binding}"/>
-                                                                        </DataTemplate>
-                                                                    </ItemsControl.ItemTemplate>
-                                                                </ItemsControl>
-                                                            </ScrollViewer>
-                                                            <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0" />
-                                                            <ScrollViewer Margin="0" Height="70" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                                                                <ItemsControl ItemsSource="{Binding Game.Tags}" Height="40" VerticalAlignment="Center" Margin="5,0">
+                                                                <ItemsControl ItemsSource="{Binding Game.Features}" Height="40" VerticalAlignment="Center" Margin="0">
                                                                     <ItemsControl.ItemsPanel>
                                                                         <ItemsPanelTemplate>
                                                                             <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
@@ -688,7 +673,25 @@
                                                                         <DataTemplate>
                                                                             <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0" Foreground="White"
                                                                                 ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
-                                                                                Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.SetFeatureFilterCommand}"
+                                                                                CommandParameter="{Binding}"/>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </ScrollViewer>
+                                                            <Separator Background="#FF2C2C2C" VerticalAlignment="Top" Margin="0" />
+                                                            <ScrollViewer Margin="0" Height="70" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                                <ItemsControl ItemsSource="{Binding Game.Tags}" Height="40" VerticalAlignment="Center" Margin="0">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Content="{Binding Name}" Background="{DynamicResource GridItemBackgroundBrush}"  Margin="40,10,0,0" Foreground="White"
+                                                                                ToolTip="{Binding Url}" ToolTipService.InitialShowDelay="500" 
+                                                                                Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.SetTagFilterCommand}"
                                                                                 CommandParameter="{Binding}"/>
                                                                         </DataTemplate>
                                                                     </ItemsControl.ItemTemplate>
@@ -719,7 +722,7 @@
                                                         </Grid.Style>
 
 
-                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}">
                                                             <Border.CacheMode>
                                                                 <BitmapCache RenderAtScale="2" />
                                                             </Border.CacheMode>
@@ -739,7 +742,7 @@
 
                                                     </Grid>
                                                     <Grid Height="285" Width="Auto" Margin="10,0,10,30" Visibility="{PluginStatus Plugin=Review_Viewer_ca24e37a-76d9-49bf-89ab-d3cba4a54bd1, Status=Installed}">
-                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource ContainerOpacity}">
+                                                        <Border Background="{DynamicResource GridItemBackgroundBrush}" CornerRadius="5" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}">
                                                             <Border.Effect>
                                                                 <DropShadowEffect Opacity="{DynamicResource DropShadowStrength}" BlurRadius="15" ShadowDepth="0"/>
                                                             </Border.Effect>
