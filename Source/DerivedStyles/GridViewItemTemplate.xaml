@@ -19,7 +19,7 @@
                               Height="{Settings GridItemHeight}">
 
                                 <!-- Rounded mask (stretches to fill Grid) -->
-                                <Border Name="Mask" Background="{DynamicResource NormalBrush}" CornerRadius="5">
+                                <Border Name="Mask" Background="{DynamicResource NormalBrush}" CornerRadius="5" Opacity="{DynamicResource GameCoverOpacity}">
                                     <Border.CacheMode>
                                         <BitmapCache RenderAtScale="2" />
                                     </Border.CacheMode>
@@ -28,7 +28,7 @@
                                 <Image Name="PART_ImageCover"
                                    RenderOptions.BitmapScalingMode="Fant" StretchDirection="Both"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Stretch="{Settings CoverArtStretch}" />
+                                   Stretch="{Settings CoverArtStretch}" Opacity="{DynamicResource GameCoverOpacity}" />
                                 <Grid Height="Auto" Width="Auto" Visibility="Visible" Opacity="0.145" RenderTransformOrigin="0.5,0.5">
                                     <Grid.RenderTransform>
                                         <TransformGroup>
@@ -57,13 +57,13 @@
                                 <Border Background="#00000000" x:Name="BorderMouseOver" Visibility="Collapsed" CornerRadius="10" />
                                 <Viewbox VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                          Name="GameControls" Visibility="Collapsed">
-                                    <StackPanel Orientation="Horizontal" Margin="0" Height="8" HorizontalAlignment="Stretch" Background="#F2232323" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" Margin="0" Height="Auto" HorizontalAlignment="Stretch" Background="#F2232323" VerticalAlignment="Center">
                                         <Button x:Name="PART_ButtonPlay" Style="{StaticResource SimpleButton}"
-                                                Margin="20,0,2,0" VerticalAlignment="Center"
-                                                Content="&#xEC74;" FontFamily="{StaticResource FontIcoFont}" FontSize="6" HorizontalAlignment="Center" />
+                                                Margin="20,1,2,1" VerticalAlignment="Center"
+                                                Content="&#xEC74;" FontFamily="{StaticResource FontIcoFont}" FontSize="6" HorizontalAlignment="Center" Cursor="Hand" />
                                         <Button x:Name="PART_ButtonInfo" Style="{StaticResource SimpleButton}"
-                                                Margin="2,0,20,0" VerticalAlignment="Center"
-                                                Content="&#xEF4F;" FontFamily="{StaticResource FontIcoFont}" FontSize="6" HorizontalAlignment="Center" />
+                                                Margin="2,1,20,1" VerticalAlignment="Center"
+                                                Content="&#xEF4F;" FontFamily="{StaticResource FontIcoFont}" FontSize="6" HorizontalAlignment="Center" Cursor="Hand" />
                                     </StackPanel>
                                 </Viewbox>
 
@@ -82,12 +82,7 @@
                                    Visibility="{Settings ShowNamesUnderCovers}" Margin="10,0,0,0" HorizontalAlignment="Left" FontWeight="Bold" />
                             </StackPanel>
                             <Grid Height="Auto" Width="Auto" Visibility="{Settings ShowNamesUnderCovers}" Margin="0,8,0,0" Background="{x:Null}">
-                                <Border BorderBrush="{x:Null}" BorderThickness="1" Height="Auto" Width="Auto" CornerRadius="5" Background="{DynamicResource GridItemBackgroundBrush}" Visibility="Visible"/>
-                                <TextBlock Text="{Binding Game.ReleaseYear}"
-                                Style="{DynamicResource BaseTextBlockStyle}"                                                                   
-                                TextAlignment="Center" TextTrimming="CharacterEllipsis"
-                                VerticalAlignment="Center"
-                                Padding="2,5,2,5" Margin="10,0,0,0" HorizontalAlignment="Left" Visibility="Collapsed" />
+                                <Border BorderBrush="{x:Null}" BorderThickness="1" Height="Auto" Width="Auto" CornerRadius="5" Background="{DynamicResource GridItemBackgroundBrush}" Visibility="Visible" Opacity="{DynamicResource GameUnderCoverDetailsOpacity}"/>
                                 <ContentControl x:Name="DuplicateHider_SourceSelector" DockPanel.Dock="Right" MaxHeight="{Binding ElementName=PART_ImageIcon, Path=Height}" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding Playtime, Converter={StaticResource PlayTimeToStringConverter}}"
                                     Style="{DynamicResource BaseTextBlockStyle}"                                                                   
