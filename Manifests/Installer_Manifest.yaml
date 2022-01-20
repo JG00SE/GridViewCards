@@ -1,5 +1,17 @@
 AddonId: GridViewCards_9af15fb8-f51c-45df-93fc-235c50bfcd39
 Packages:
+
+- Version: 0.2
+    RequiredApiVersion: 2.1.0
+    ReleaseDate: 2022-01-12
+    PackageUrl: https://github.com/JG00SE/GridViewCards/releases/download/0.2/GridViewCards_9af15fb8-f51c-45df-93fc-235c50bfcd39_0_2.pthm
+    Changelog:
+      - Revisions & improvements over 0.1
+      - Better colouring
+      - Bug fixes
+      - Improved theme modifier support
+      - Control changes
+
   - Version: 0.1
     RequiredApiVersion: 2.1.0
     ReleaseDate: 2022-01-12
